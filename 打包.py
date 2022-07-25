@@ -1,0 +1,2 @@
+from algcxdb import*
+cxdb()
