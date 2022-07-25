@@ -6,7 +6,7 @@ import ttkbootstrap as t
 from tkinter.messagebox import *
 
 #闪屏动画
-import loading_window
+#import loading_window
 
 #代码高亮（头）
 try:  # 调用idle进行高亮
@@ -1689,10 +1689,41 @@ def xjwjpy():
                                                       bg="white",
                                                       bd=0, font=(zt, 14), undo=True, insertwidth=1)
 
-                #代码补全头
-                from idlelib.autocomplete import AutoComplete
-                AutoComplete(editwin=self)
-                #代码补全底
+                #代码补全=====================
+                def bqzt(event):
+                    #创建函数列表
+                    dmlist = ["print"]
+                    #利用分词，获取用户输入的那半个函数
+                    import jieba
+                    #全局分析
+
+                    #======
+                    feilist = jieba.lcut(self.text.get("1.0", "end"))
+                    def power(n):
+                        jian = n + n
+                        far = n - jian
+                        return far
+                    a = 2
+                    while True:
+                        if feilist[power(a)] == "\n":
+                            a = a + 1
+                        else:
+                            print(feilist[power(a)])
+                            bandm = feilist[power(a)]
+                            break
+                    #得到候选函数列表
+                    #候选列表
+                    hx = []
+                    lennum = len(bandm)
+                    for i in dmlist:
+                        db = i[0:lennum]
+                        if db == i:
+                            pass
+                        elif db == bandm:
+                            hx.append(i)
+                    print(hx)
+                self.text.bind("<Alt_L>", bqzt)
+                #代码补全底======================
 
                 #自动缩进
                 self.text.bind("<Return>", self.enter)
