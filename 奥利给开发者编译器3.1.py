@@ -789,6 +789,7 @@ def dqwjms(pat):
                         j = k + '.' + t
                         self.text.tag_add("tag1", i, j)
                         self.text.tag_config("tag1", background="yellow", foreground="blue")
+                        self.text.see(i)
                         li = []
 
                     def find2():
@@ -824,6 +825,7 @@ def dqwjms(pat):
                         j = k + '.' + t
                         self.text.tag_add("tag1", i, j)
                         self.text.tag_config("tag1", background="yellow", foreground="blue")
+                        self.text.see(i)
                         li = []
 
                     def find3():
@@ -1324,6 +1326,7 @@ def dqwjms(pat):
                         j = k + '.' + t
                         self.text.tag_add("tag1", i, j)
                         self.text.tag_config("tag1", background="yellow", foreground="blue")
+                        self.text.see(i)
                         li = []
 
                     def find2():
@@ -1359,6 +1362,7 @@ def dqwjms(pat):
                         j = k + '.' + t
                         self.text.tag_add("tag1", i, j)
                         self.text.tag_config("tag1", background="yellow", foreground="blue")
+                        self.text.see(i)
                         li = []
 
                     def find3():
@@ -1912,6 +1916,7 @@ def xjwjpy():
                     j = k + '.' + t
                     self.text.tag_add("tag1", i, j)
                     self.text.tag_config("tag1", background="yellow", foreground="blue")
+                    self.text.see(i)
                     li = []
 
                 def find2():
@@ -1947,6 +1952,7 @@ def xjwjpy():
                     j = k + '.' + t
                     self.text.tag_add("tag1", i, j)
                     self.text.tag_config("tag1", background="yellow", foreground="blue")
+                    self.text.see(i)
                     li = []
 
                 def find3():
@@ -2525,6 +2531,7 @@ def xjwjHTML():
                     j = k + '.' + t
                     self.text.tag_add("tag1", i, j)
                     self.text.tag_config("tag1", background="yellow", foreground="blue")
+                    self.text.see(i)
                     li = []
 
                 def find2():
@@ -2560,6 +2567,7 @@ def xjwjHTML():
                     j = k + '.' + t
                     self.text.tag_add("tag1", i, j)
                     self.text.tag_config("tag1", background="yellow", foreground="blue")
+                    self.text.see(i)
                     li = []
 
                 def find3():
@@ -2830,75 +2838,76 @@ def gxbb():
     htgx.start()
 
 def gxbbjb():
+    #无需复制（上）
     try:
-        #无需复制（上）
-        try:
-            with open("设置\\url.txt","r",encoding="UTF-8") as file:
-                url2 = file.read()
-                url = url2
-        except:
-            url = r"https://algfwq.github.io/GX/"
+        with open("设置\\url.txt","r",encoding="UTF-8") as file:
+            url2 = file.read()
+            url = url2
+    except:
+        url = r"https://algfwq.github.io/GX/"
 
-        def pqwybqnr(wz,bq):#爬取网页标签内容，wz=网址，bq=标签
-            import requests
-            import bs4
-            import lxml
-            # 请求网页
-            #作答区域1：修改下一行的网址，改为自己要请求的网页地址
-            url = wz
-            #作答区域2：补充下一行代码，使用requests库中的get()函数，请求网页url
+    def pqwybqnr(wz,bq):#爬取网页标签内容，wz=网址，bq=标签
+        import requests
+        import bs4
+        import lxml
+        # 请求网页
+        #作答区域1：修改下一行的网址，改为自己要请求的网页地址
+        url = wz
+        #作答区域2：补充下一行代码，使用requests库中的get()函数，请求网页url
+        try:
             res = requests.get(url)
             res.encoding = "UTF-8"
-            # 选取数据
-            soup = bs4.BeautifulSoup(res.text,"lxml")
-            #作答区域3：查找soup中所有的a标签
-            data = soup.find_all(bq)
-            # 展示结果
-            for n in data:
-                return n.text
-
-        bb = pqwybqnr(url,"h1")
-        gxnr = pqwybqnr(url,"h2")
-        xzwz = pqwybqnr(url,"h3")
-        tqm = pqwybqnr(url,"h4")
-        bb2 = float(bb)
-
-
-        if bb2 > 2.0:
-            def gxwj():
-                def dkwy(wz):  # 打卡网址，wz=网址
-                    import webbrowser as w
-                    w.open(wz)
-                dkwy(xzwz)
+        except:
             import tkinter as t
             gx = t.Toplevel()
-            gx.title("有可用更新")
-            # Label(gx,text="有可用更新，请更新！",font=("宋体",20),fg=ztys).pack()
-            # Label(gx,text="更新版本："+bb,font=("宋体",20),fg=ztys).pack()
-            # Label(gx,text="更新内容："+gxnr,font=("宋体",20),fg=ztys).pack()
-            # Label(gx,text="下载地址："+xzwz,font=("宋体",20),fg=ztys).pack()
-            t = Text(gx,font=("宋体",15),fg=ztys,height=10)
-            t.pack(fill=BOTH, expand=1)
-            t.insert(END,"有可用更新，请更新！\n")
-            t.insert(END,"更新版本："+bb+"\n")
-            t.insert(END,"更新内容："+gxnr+"\n")
-            t.insert(END,"下载地址："+xzwz+"\n")
-            t.insert(END,"提取码："+tqm+"\n")
+            gx.title("检测失败")
+            Label(gx, text="检测失败，可能是因为网站更新，或网络问题，请稍后重试，可以联系QQ：3104374883 ！", font=("宋体", 20)).pack()
+            gx.mainloop()
+        # 选取数据
+        soup = bs4.BeautifulSoup(res.text,"lxml")
+        #作答区域3：查找soup中所有的a标签
+        data = soup.find_all(bq)
+        # 展示结果
+        for n in data:
+            return n.text
 
-            Button(gx, text="立刻更新", command=gxwj).pack()
-            gx.mainloop()
-        else:
-            import tkinter as t
-            gx = t.Toplevel()
-            gx.title("无可用更新")
-            Label(gx, text="无可用更新，请继续使用！", font=("宋体",20)).pack()
-            gx.mainloop()
-    except:
+    bb = pqwybqnr(url,"h1")
+    gxnr = pqwybqnr(url,"h2")
+    xzwz = pqwybqnr(url,"h3")
+    tqm = pqwybqnr(url,"h4")
+    bb2 = float(bb)
+
+
+    if bb2 > 3.0:
+        def gxwj():
+            def dkwy(wz):  # 打卡网址，wz=网址
+                import webbrowser as w
+                w.open(wz)
+            dkwy(xzwz)
         import tkinter as t
         gx = t.Toplevel()
-        gx.title("检测失败")
-        Label(gx, text="检测失败，可能是因为网站更新，或网络问题，请稍后重试，可以联系QQ：3104374883 ！", font=("宋体",20)).pack()
+        gx.title("有可用更新")
+        # Label(gx,text="有可用更新，请更新！",font=("宋体",20),fg=ztys).pack()
+        # Label(gx,text="更新版本："+bb,font=("宋体",20),fg=ztys).pack()
+        # Label(gx,text="更新内容："+gxnr,font=("宋体",20),fg=ztys).pack()
+        # Label(gx,text="下载地址："+xzwz,font=("宋体",20),fg=ztys).pack()
+        t = Text(gx,font=("宋体",15),fg=ztys,height=10)
+        t.pack(fill=BOTH, expand=1)
+        t.insert(END,"有可用更新，请更新！\n")
+        t.insert(END,"更新版本："+bb+"\n")
+        t.insert(END,"更新内容："+gxnr+"\n")
+        t.insert(END,"下载地址："+xzwz+"\n")
+        t.insert(END,"提取码："+tqm+"\n")
+
+        Button(gx, text="立刻更新", command=gxwj).pack()
         gx.mainloop()
+    else:
+        import tkinter as t
+        gx = t.Toplevel()
+        gx.title("无可用更新")
+        Label(gx, text="无可用更新，请继续使用！", font=("宋体",20)).pack()
+        gx.mainloop()
+
 #关于
 def gy():
     win = Toplevel()
@@ -2906,7 +2915,7 @@ def gy():
     win.geometry("300x300")
     Label(win,text="关于",font=("kaiti",30)).pack()
     Label(win,text="奥利给开发者编译器\n由奥利给硬件科技工作室制作",font=20).pack()
-    Label(win,text="版本：2.0",font=20).pack()
+    Label(win,text="版本：3.0",font=20).pack()
     win.mainloop()
 #重启程序
 def cq():
@@ -3567,7 +3576,7 @@ def sjanys():
 #主窗口
 #zck = t.Tk()
 zck = t.Window(themename="cosmo")
-zck.title("奥利给开发者编译器2.0")
+zck.title("奥利给开发者编译器3.0")
 zck.geometry("300x385")
 zck.call('tk', 'scaling', ScaleFactor/75)
 
