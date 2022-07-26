@@ -1697,9 +1697,29 @@ def xjwjpy():
                 def bqzt(event):
                     #创建函数列表
                     dmlist = ["print"]
+                    #定位内容
+                    self.gbw = self.text.index("insert")
+                    def numzs(num):
+                        '''
+                        浮点数字整数、小数分离【将数字转化为字符串处理】
+                        '''
+                        zs, xs = str(num).split('.')
+                        return zs
+
+                    def numxs(num):
+                        '''
+                        浮点数字整数、小数分离【将数字转化为字符串处理】
+                        '''
+                        zs, xs = str(num).split('.')
+                        return xs
+                    line = numzs(self.gbw)
+                    lie = numxs(self.gbw)
+                    import linecache
+                    bc()
+                    xqnr = linecache.getline(self.mc2,line)
+                    print(xqnr)
                     #利用分词，获取用户输入的那半个函数
                     import jieba
-
                     feilist = jieba.lcut(self.text.get("1.0", "end"))
                     def power(n):
                         jian = n + n
