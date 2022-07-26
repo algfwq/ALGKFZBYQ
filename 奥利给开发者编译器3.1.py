@@ -1699,9 +1699,7 @@ def xjwjpy():
                     dmlist = ["print"]
                     #利用分词，获取用户输入的那半个函数
                     import jieba
-                    #全局分析
 
-                    #======
                     feilist = jieba.lcut(self.text.get("1.0", "end"))
                     def power(n):
                         jian = n + n
