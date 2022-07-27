@@ -1693,12 +1693,18 @@ def xjwjpy():
                                                       bg="white",
                                                       bd=0, font=(zt, 14), undo=True, insertwidth=1)
 
-                #代码补全=====================
+                # 代码补全=====================
                 def bqzt(event):
-                    #创建函数列表
-                    dmlist = ["print","text"]
-                    #定位内容
+                    def bc():
+                        a = self.text.get("1.0", "end")
+                        with open(self.mc2, "w+", encoding="UTF-8") as file:
+                            file.write(a)
+                    bc()
+                    # 创建函数列表
+                    dmlist = ["print", "text",'ppt']
+                    # 定位内容
                     self.gbw = self.text.index("insert")
+
                     def numzs(num):
                         '''
                         浮点数字整数、小数分离【将数字转化为字符串处理】
@@ -1712,32 +1718,39 @@ def xjwjpy():
                         '''
                         zs, xs = str(num).split('.')
                         return xs
+
                     linenum = numzs(self.gbw)
                     linenum2 = int(linenum)
                     lie = numxs(self.gbw)
                     lie2 = int(lie)
                     bc()
                     import linecache
-                    text = linecache.getline(self.mc2,linenum2)
+                    text = linecache.getline(self.mc2, linenum2)
                     ftext = text[0:lie2]
-                    print(ftext)
-                    #利用分词，获取用户输入的那半个函数
+                    print(ftext)#第一个输出内容，为切分后有可能是半代码的内容
+                    # 利用分词，获取用户输入的那半个函数
                     import jieba
                     feilist = jieba.lcut(ftext)
+                    print(feilist)#第二个输出，为切分后的列表
                     def power(n):
                         jian = n + n
                         far = n - jian
                         return far
-                    a = 1
+
+                    a = 0
                     while True:
-                        if feilist[power(a)] == "\n":
-                            a = a + 1
-                        else:
-                            print(feilist[power(a)])
-                            bandm = feilist[power(a)]
+                        try:
+                            if feilist[power(a)] == "\n":
+                                a = a + 1
+                            else:
+                                print(feilist[power(a)])#第三个输出，为去除换行符后的内容
+                                bandm = feilist[power(a)]
+                                break
+                        except:
+                            bandm = "   "
                             break
-                    #得到候选函数列表
-                    #候选列表
+                    # 得到候选函数列表
+                    # 候选列表
                     hx = []
                     lennum = len(bandm)
                     for i in dmlist:
@@ -1746,9 +1759,34 @@ def xjwjpy():
                             pass
                         elif db == bandm:
                             hx.append(i)
-                    print(hx)
+                    if hx == []:
+                        hx.append("无建议")
+                    print(hx)#最后一个输出，推荐列表
+                    # 插入组件
+                    def cr(bandm, xzdm):  # bandm用户输入的那一半代码，xzdm用户选择的代码
+                        bancd = len(bandm)
+                        xzcd = len(xzdm)
+                        bqdm = xzdm[bancd:xzcd]
+                        fz(bqdm)
+                        def zt(event=None):
+                            global root
+                            self.text.event_generate('<<Paste>>')
+                        zt()
+                    # 补全弹窗
+                    self.mnu = Menu()
+                    if hx == ["无建议"]:
+                        self.mnu.add_command(label="无建议", state=DISABLED)
+                    else:
+                        for i in hx:
+                            self.mnu.add_command(label=i, command=(
+                                lambda: cr(bandm, i)))
+                    #self.mnu.post(self.winfo_x(), self.winfo_y())
+                    x = self.winfo_pointerx()
+                    y = self.winfo_pointery()
+                    self.mnu.post(x,y)
+
                 self.text.bind("<Alt_L>", bqzt)
-                #代码补全底======================
+                # 代码补全底======================
 
                 #自动缩进
                 self.text.bind("<Return>", self.enter)
