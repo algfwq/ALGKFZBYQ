@@ -1696,7 +1696,7 @@ def xjwjpy():
                 #代码补全=====================
                 def bqzt(event):
                     #创建函数列表
-                    dmlist = ["print"]
+                    dmlist = ["print","text"]
                     #定位内容
                     self.gbw = self.text.index("insert")
                     def numzs(num):
@@ -1712,20 +1712,23 @@ def xjwjpy():
                         '''
                         zs, xs = str(num).split('.')
                         return xs
-                    line = numzs(self.gbw)
+                    linenum = numzs(self.gbw)
+                    linenum2 = int(linenum)
                     lie = numxs(self.gbw)
-                    import linecache
+                    lie2 = int(lie)
                     bc()
-                    xqnr = linecache.getline(self.mc2,line)
-                    print(xqnr)
+                    import linecache
+                    text = linecache.getline(self.mc2,linenum2)
+                    ftext = text[0:lie2]
+                    print(ftext)
                     #利用分词，获取用户输入的那半个函数
                     import jieba
-                    feilist = jieba.lcut(self.text.get("1.0", "end"))
+                    feilist = jieba.lcut(ftext)
                     def power(n):
                         jian = n + n
                         far = n - jian
                         return far
-                    a = 2
+                    a = 1
                     while True:
                         if feilist[power(a)] == "\n":
                             a = a + 1
