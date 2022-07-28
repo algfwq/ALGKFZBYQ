@@ -1831,7 +1831,7 @@ def xjwjpy():
                         far = n - jian
                         return far
 
-                    a = 0
+                    a = 1
                     while True:
                         try:
                             if feilist[power(a)] == "\n":
@@ -1866,6 +1866,7 @@ def xjwjpy():
                             global root
                             self.text.event_generate('<<Paste>>')
                         zt()
+
                     # 补全弹窗
                     win = Toplevel()
                     win.overrideredirect(True)
