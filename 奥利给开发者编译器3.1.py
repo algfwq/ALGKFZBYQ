@@ -1697,13 +1697,20 @@ def xjwjpy():
                 def bqzt(event):
                     import random
                     self.mc3 = str(random.randint(1, 1000))
+                    lj = os.getcwd()
+                    try:
+                        os.mkdir(lj + "\\缓存文件（删除了不会造成影响）")
+                        self.mc3 = "缓存文件（删除了不会造成影响）//" + self.mc3
+                    except:
+                        self.mc3 = "缓存文件（删除了不会造成影响）//" + self.mc3
+
                     def bc():
                         a = self.text.get("1.0", "end")
                         with open(self.mc3, "w+", encoding="UTF-8") as file:
                             file.write(a)
                     bc()
                     # 创建函数列表
-                    dmlist = ["print", "text", 'ppt', 'ppp', 'pcc', 'pssb', 'ppsb', "ppppa", 'paakck','def','ccc','aaa']
+                    dmlist = ["print", "text", 'ppt', 'ppp', 'pcc', 'pssb', 'ppsb', "ppppa", 'paakck','def','ccc','aaa','fuck','you','你是傻逼','你是王八蛋',"小日本",'俄罗斯导弹一枚炸沉日本']
                     # 定位内容
                     self.gbw = self.text.index("insert")
 
