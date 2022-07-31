@@ -6,7 +6,7 @@ import ttkbootstrap as t
 from tkinter.messagebox import *
 
 #闪屏动画
-#import loading_window
+import loading_window
 
 #代码高亮（头）
 try:  # 调用idle进行高亮
@@ -1696,7 +1696,7 @@ def xjwjpy():
                 # 代码补全=====================
                 def bqzt(event):
                     import random
-                    self.mc3 = str(random.randint(1, 1000))
+                    self.mc3 = str(random.randint(1, 10000000000000000000000000000000000000000))
                     lj = os.getcwd()
                     try:
                         os.mkdir(lj + "\\缓存文件（删除了不会造成影响）")
@@ -1710,7 +1710,15 @@ def xjwjpy():
                             file.write(a)
                     bc()
                     # 创建函数列表
-                    dmlist = ["print", "text", 'ppt', 'ppp', 'pcc', 'pssb', 'ppsb', "ppppa", 'paakck','def','ccc','aaa','fuck','you','你是傻逼','你是王八蛋',"小日本",'俄罗斯导弹一枚炸沉日本']
+                    dmlist = []
+                    #遍历文件获取代码库
+                    # 读取配置
+                    try:
+                        with open("设置\\python.txt", "r", encoding="UTF-8") as file:
+                            for line in file:
+                                dmlist.append(line)
+                    except:
+                        dmlist = ["print",'def','ppt','text','C++','fuck',"好玩吗？"]
                     # 定位内容
                     self.gbw = self.text.index("insert")
 
@@ -1794,9 +1802,12 @@ def xjwjpy():
                     def fuck():
                         win.destroy()
 
+                    def fuck2(event):
+                        win.destroy()
+
                     win.after(10000, fuck)
-                    x = win.winfo_pointerx()
-                    y = win.winfo_pointery()
+                    x = win.winfo_pointerx() - 1
+                    y = win.winfo_pointery() - 1
                     x2 = str(x)
                     y2 = str(y)
                     hxs = len(hx)
@@ -1812,10 +1823,13 @@ def xjwjpy():
                     sc.pack(side=RIGHT, fill=Y)
                     hxlist = Listbox(win, yscrollcommand=sc.set)
                     hxlist.pack(expand=True)
+                    hxlist.selection_set(first=0)
                     # 滚动条动，列表跟着动
                     sc.config(command=hxlist.yview)
                     if hx == ["无建议"]:
                         hxlist.insert(END, "无建议")
+                        win.bind("<Alt_R>", fuck2)
+                        win.bind("<Alt_L>", fuck2)
                     else:
                         for item in hx:
                             hxlist.insert(END, item)  # END表示每插入一个都是在最后一个位置
@@ -1827,9 +1841,12 @@ def xjwjpy():
 
                         win.bind("<Return>", crzb)
                         win.bind("<Double-Button-1>", crzb)
+                        win.bind("<Alt_R>",fuck2)
+                        win.bind("<Alt_L>",fuck2)
                     win.mainloop()
 
                 self.text.bind("<Alt_L>", bqzt)
+                self.text.bind("<Alt_R>", bqzt)
                 # 代码补全底======================
 
 
