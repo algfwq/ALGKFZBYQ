@@ -1696,7 +1696,20 @@ def xjwjpy():
                 # 代码补全=====================
                 def bqzt(event):
                     import random
-                    self.mc3 = str(random.randint(1, 10000000000000000000000000000000000000000))
+                    import os
+                    hcpath = os.getcwd() + "\\缓存文件（删除了不会造成影响）"
+                    #hcpath = repr(hcpath_no)
+                    while True:
+                        try:
+                            import os
+                            name = os.listdir(hcpath)
+                            self.mc3 = str(random.randint(1, 10000000000000000000000000000000000000000))
+                            if self.mc3 not in name:
+                                break
+                        except:
+                            self.mc3 = str(random.randint(1, 10000000000000000000000000000000000000000))
+                            break
+
                     lj = os.getcwd()
                     try:
                         os.mkdir(lj + "\\缓存文件（删除了不会造成影响）")
