@@ -1727,7 +1727,6 @@ def xjwjpy():
                         dmlist = ["print",'def']
                     # 定位内容
                     self.gbw = self.text.index("insert")
-
                     def numzs(num):
                         '''
                         浮点数字整数、小数分离【将数字转化为字符串处理】
@@ -1755,6 +1754,18 @@ def xjwjpy():
                     import jieba
                     feilist = jieba.lcut(ftext)
                     print(feilist)  # 第二个输出，为切分后的列表
+
+                    #智能补全系统
+                    for i in range(1,linenum2):
+                        import linecache
+                        fxbl = linecache.getline(self.mc3,i)
+                        if " = " in fxbl:
+                            import jieba
+                            yslist = jieba.lcut(fxbl)
+                            dyfcdw = yslist.index("=")
+                            dyfcdw = dyfcdw - 2
+                            blm = yslist[dyfcdw]
+                            dmlist.append(blm)
 
                     def power(n):
                         jian = n + n
@@ -2165,7 +2176,7 @@ def xjwjpy():
                 menu.add_command(label="替换", command=replace)
                 menu.add_command(label="库管理",command=kgl)
                 menu.add_command(label="背景音乐",command=yy)
-                menu.add_command(label="代码提示",command=dmts)
+                menu.add_command(label="代码补全",command=dmts)
                 menu.add_command(label="更多插件",command=cj)
                 menu.add_command(label="终端",command=cmd)
 

@@ -1,5 +1,9 @@
-pppp
-fuck
-clion
-fuck_you
-aaa
+print
+def
+class
+import
+from
+()
+if
+and
+None
