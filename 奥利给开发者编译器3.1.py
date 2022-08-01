@@ -6,7 +6,7 @@ import ttkbootstrap as t
 from tkinter.messagebox import *
 
 #闪屏动画
-import loading_window
+#import loading_window
 
 #代码高亮（头）
 try:  # 调用idle进行高亮
@@ -1716,9 +1716,15 @@ def xjwjpy():
                     try:
                         with open("设置\\python.txt", "r", encoding="UTF-8") as file:
                             for line in file:
+                                sb = len(line)
+                                sb = sb + 1
+                                sb2 = sb - 2
+                                wbd = line[sb2:sb]
+                                if wbd == "\n":
+                                    line = line[0:sb2]
                                 dmlist.append(line)
                     except:
-                        dmlist = ["print",'def','ppt','text','C++','fuck',"好玩吗？"]
+                        dmlist = ["print",'def']
                     # 定位内容
                     self.gbw = self.text.index("insert")
 
