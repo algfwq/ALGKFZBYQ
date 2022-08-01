@@ -590,6 +590,195 @@ def dqwjms(pat):
                                                           width=self.winfo_width() - self.line_text.winfo_width(),
                                                           bg="white",
                                                           bd=0, font=(zt, 14), undo=True, insertwidth=1)
+
+                    # 代码补全=====================
+                    def bqzt(event):
+                        import random
+                        import os
+                        hcpath = os.getcwd() + "\\缓存文件（删除了不会造成影响）"
+                        # hcpath = repr(hcpath_no)
+                        while True:
+                            try:
+                                import os
+                                name = os.listdir(hcpath)
+                                self.mc3 = str(random.randint(1, 10000000000000000000000000000000000000000))
+                                if self.mc3 not in name:
+                                    break
+                            except:
+                                self.mc3 = str(random.randint(1, 10000000000000000000000000000000000000000))
+                                break
+
+                        lj = os.getcwd()
+                        try:
+                            os.mkdir(lj + "\\缓存文件（删除了不会造成影响）")
+                            self.mc3 = "缓存文件（删除了不会造成影响）//" + self.mc3
+                        except:
+                            self.mc3 = "缓存文件（删除了不会造成影响）//" + self.mc3
+
+                        def bc():
+                            a = self.text.get("1.0", "end")
+                            with open(self.mc3, "w+", encoding="UTF-8") as file:
+                                file.write(a)
+
+                        bc()
+                        # 创建函数列表
+                        dmlist = []
+                        # 遍历文件获取代码库
+                        # 读取配置
+                        try:
+                            with open("设置\\python.txt", "r", encoding="UTF-8") as file:
+                                for line in file:
+                                    sb = len(line)
+                                    sb = sb + 1
+                                    sb2 = sb - 2
+                                    wbd = line[sb2:sb]
+                                    if wbd == "\n":
+                                        line = line[0:sb2]
+                                    dmlist.append(line)
+                        except:
+                            dmlist = ["print", 'def']
+                        # 定位内容
+                        self.gbw = self.text.index("insert")
+
+                        def numzs(num):
+                            '''
+                            浮点数字整数、小数分离【将数字转化为字符串处理】
+                            '''
+                            zs, xs = str(num).split('.')
+                            return zs
+
+                        def numxs(num):
+                            '''
+                            浮点数字整数、小数分离【将数字转化为字符串处理】
+                            '''
+                            zs, xs = str(num).split('.')
+                            return xs
+
+                        linenum = numzs(self.gbw)
+                        linenum2 = int(linenum)
+                        lie = numxs(self.gbw)
+                        lie2 = int(lie)
+                        bc()
+                        import linecache
+                        text = linecache.getline(self.mc3, linenum2)
+                        ftext = text[0:lie2]
+                        print(ftext)  # 第一个输出内容，为切分后有可能是半代码的内容
+                        # 利用分词，获取用户输入的那半个函数
+                        import jieba
+                        feilist = jieba.lcut(ftext)
+                        print(feilist)  # 第二个输出，为切分后的列表
+
+                        # 智能补全系统
+                        for i in range(1, linenum2):
+                            import linecache
+                            fxbl = linecache.getline(self.mc3, i)
+                            if " = " in fxbl:
+                                import jieba
+                                yslist = jieba.lcut(fxbl)
+                                dyfcdw = yslist.index("=")
+                                dyfcdw = dyfcdw - 2
+                                blm = yslist[dyfcdw]
+                                dmlist.append(blm)
+
+                        def power(n):
+                            jian = n + n
+                            far = n - jian
+                            return far
+
+                        a = 1
+                        while True:
+                            try:
+                                if feilist[power(a)] == "\n":
+                                    a = a + 1
+                                else:
+                                    print(feilist[power(a)])  # 第三个输出，为去除换行符后的内容
+                                    bandm = feilist[power(a)]
+                                    break
+                            except:
+                                bandm = "   "
+                                break
+                        # 得到候选函数列表
+                        # 候选列表
+                        hx = []
+                        lennum = len(bandm)
+                        for i in dmlist:
+                            db = i[0:lennum]
+                            if db == i:
+                                pass
+                            elif db == bandm:
+                                hx.append(i)
+                        if hx == []:
+                            hx.append("无建议")
+                        print(hx)  # 最后一个输出，推荐列表
+
+                        # 插入组件
+                        def cr(bandm, xzdm):  # bandm用户输入的那一半代码，xzdm用户选择的代码
+                            bancd = len(bandm)
+                            xzcd = len(xzdm)
+                            bqdm = xzdm[bancd:xzcd]
+                            fz(bqdm)
+
+                            def zt(event=None):
+                                global root
+                                self.text.event_generate('<<Paste>>')
+
+                            zt()
+
+                        # 补全弹窗
+                        win = Toplevel()
+                        win.overrideredirect(True)
+                        win.wm_attributes('-topmost', 1)
+
+                        def fuck():
+                            win.destroy()
+
+                        def fuck2(event):
+                            win.destroy()
+
+                        win.after(10000, fuck)
+                        x = win.winfo_pointerx() - 1
+                        y = win.winfo_pointery() - 1
+                        x2 = str(x)
+                        y2 = str(y)
+                        hxs = len(hx)
+                        if hxs > 6:
+                            k = 132
+                        else:
+                            k = hxs * 21
+                        k2 = str(k)
+                        ckdx = "100x" + k2
+                        weizhi = ckdx + "+" + x2 + "+" + y2
+                        win.geometry(weizhi)
+                        sc = t.Scrollbar(win, bootstyle=sjgdtys())
+                        sc.pack(side=RIGHT, fill=Y)
+                        hxlist = Listbox(win, yscrollcommand=sc.set)
+                        hxlist.pack(expand=True)
+                        hxlist.selection_set(first=0)
+                        # 滚动条动，列表跟着动
+                        sc.config(command=hxlist.yview)
+                        if hx == ["无建议"]:
+                            hxlist.insert(END, "无建议")
+                            win.bind("<Alt_R>", fuck2)
+                            win.bind("<Alt_L>", fuck2)
+                        else:
+                            for item in hx:
+                                hxlist.insert(END, item)  # END表示每插入一个都是在最后一个位置
+
+                            def crzb(event):
+                                for i in hxlist.curselection():
+                                    cr(bandm, hxlist.get(i))
+                                    win.destroy()
+
+                            win.bind("<Return>", crzb)
+                            win.bind("<Double-Button-1>", crzb)
+                            win.bind("<Alt_R>", fuck2)
+                            win.bind("<Alt_L>", fuck2)
+                        win.mainloop()
+
+                    self.text.bind("<Alt_L>", bqzt)
+                    self.text.bind("<Alt_R>", bqzt)
+                    # 代码补全底======================
+
                     # 自动缩进
                     self.text.bind("<Return>", self.enter)
                     # ======
