@@ -680,6 +680,18 @@ def dqwjms(pat):
                                 blm = yslist[dyfcdw]
                                 dmlist.append(blm)
 
+                        for i in range(1, linenum2):
+                            import linecache
+                            fxbl = linecache.getline(self.mc3, i)
+                            if "def " in fxbl:
+                                import jieba
+                                yslist = jieba.lcut(fxbl)
+                                dyfcdw = yslist.index("def")
+                                dyfcdw = dyfcdw + 2
+                                blm = yslist[dyfcdw]
+                                blm = blm + "()"
+                                dmlist.append(blm)
+
                         def power(n):
                             jian = n + n
                             far = n - jian
@@ -1968,6 +1980,22 @@ def xjwjpy():
                             dyfcdw = dyfcdw - 2
                             blm = yslist[dyfcdw]
                             dmlist.append(blm)
+                        if "def " in fxbl:
+                            import jieba
+                            yslist = jieba.lcut(fxbl)
+                            dyfcdw = yslist.index("def")
+                            dyfcdw = dyfcdw + 2
+                            blm = yslist[dyfcdw]
+                            blm = blm + "()"
+                            dmlist.append(blm)
+                        if "class " in fxbl:
+                            import jieba
+                            yslist = jieba.lcut(fxbl)
+                            dyfcdw = yslist.index("class")
+                            dyfcdw = dyfcdw + 2
+                            blm = yslist[dyfcdw]
+                            blm = blm + "()"
+                            dmlist.append(blm)
 
                     def power(n):
                         jian = n + n
@@ -1986,83 +2014,104 @@ def xjwjpy():
                         except:
                             bandm = "   "
                             break
-                    # 得到候选函数列表
-                    # 候选列表
-                    hx = []
-                    lennum = len(bandm)
-                    for i in dmlist:
-                        db = i[0:lennum]
-                        if db == i:
-                            pass
-                        elif db == bandm:
-                            hx.append(i)
-                    if hx == []:
-                        hx.append("无建议")
-                    print(hx)  # 最后一个输出，推荐列表
 
-                    # 插入组件
-                    def cr(bandm, xzdm):  # bandm用户输入的那一半代码，xzdm用户选择的代码
-                        bancd = len(bandm)
-                        xzcd = len(xzdm)
-                        bqdm = xzdm[bancd:xzcd]
-                        fz(bqdm)
-
+                    #智能符号补全
+                    #插入符号
+                    def crfh(fh):
+                        fz(fh)
                         def zt(event=None):
                             global root
                             self.text.event_generate('<<Paste>>')
-
                         zt()
-
-                    # 补全弹窗
-                    win = Toplevel()
-                    win.overrideredirect(True)
-                    win.wm_attributes('-topmost', 1)
-
-                    def fuck():
-                        win.destroy()
-
-                    def fuck2(event):
-                        win.destroy()
-
-                    win.after(10000, fuck)
-                    x = win.winfo_pointerx() - 1
-                    y = win.winfo_pointery() - 1
-                    x2 = str(x)
-                    y2 = str(y)
-                    hxs = len(hx)
-                    if hxs > 6:
-                        k = 132
+                        self.text.mark_set("insert", "%d.%d" % (linenum2, lie2))
+                    if bandm == '"':
+                        crfh('"')
+                    elif bandm == "'":
+                        crfh("'")
+                    elif bandm == "(":
+                        crfh(")")
+                    elif bandm == "[":
+                        crfh("]")
+                    elif bandm == "{":
+                        crfh("}")
                     else:
-                        k = hxs * 21
-                    k2 = str(k)
-                    ckdx = "100x" + k2
-                    weizhi = ckdx + "+" + x2 + "+" + y2
-                    win.geometry(weizhi)
-                    sc = t.Scrollbar(win, bootstyle=sjgdtys())
-                    sc.pack(side=RIGHT, fill=Y)
-                    hxlist = Listbox(win, yscrollcommand=sc.set)
-                    hxlist.pack(expand=True)
-                    hxlist.selection_set(first=0)
-                    # 滚动条动，列表跟着动
-                    sc.config(command=hxlist.yview)
-                    if hx == ["无建议"]:
-                        hxlist.insert(END, "无建议")
-                        win.bind("<Alt_R>", fuck2)
-                        win.bind("<Alt_L>", fuck2)
-                    else:
-                        for item in hx:
-                            hxlist.insert(END, item)  # END表示每插入一个都是在最后一个位置
+                        # 得到候选函数列表
+                        # 候选列表
+                        hx = []
+                        lennum = len(bandm)
+                        for i in dmlist:
+                            db = i[0:lennum]
+                            if db == i:
+                                pass
+                            elif db == bandm:
+                                hx.append(i)
+                        if hx == []:
+                            hx.append("无建议")
+                        print(hx)  # 最后一个输出，推荐列表
 
-                        def crzb(event):
-                            for i in hxlist.curselection():
-                                cr(bandm, hxlist.get(i))
-                                win.destroy()
+                        # 插入组件
+                        def cr(bandm, xzdm):  # bandm用户输入的那一半代码，xzdm用户选择的代码
+                            bancd = len(bandm)
+                            xzcd = len(xzdm)
+                            bqdm = xzdm[bancd:xzcd]
+                            fz(bqdm)
 
-                        win.bind("<Return>", crzb)
-                        win.bind("<Double-Button-1>", crzb)
-                        win.bind("<Alt_R>",fuck2)
-                        win.bind("<Alt_L>",fuck2)
-                    win.mainloop()
+                            def zt(event=None):
+                                global root
+                                self.text.event_generate('<<Paste>>')
+
+                            zt()
+
+                        # 补全弹窗
+                        win = Toplevel()
+                        win.overrideredirect(True)
+                        win.wm_attributes('-topmost', 1)
+
+                        def fuck():
+                            win.destroy()
+
+                        def fuck2(event):
+                            win.destroy()
+
+                        win.after(10000, fuck)
+                        x = win.winfo_pointerx() - 1
+                        y = win.winfo_pointery() - 1
+                        x2 = str(x)
+                        y2 = str(y)
+                        hxs = len(hx)
+                        if hxs > 6:
+                            k = 132
+                        else:
+                            k = hxs * 21
+                        k2 = str(k)
+                        ckdx = "100x" + k2
+                        weizhi = ckdx + "+" + x2 + "+" + y2
+                        win.geometry(weizhi)
+                        sc = t.Scrollbar(win, bootstyle=sjgdtys())
+                        sc.pack(side=RIGHT, fill=Y)
+                        hxlist = Listbox(win, yscrollcommand=sc.set)
+                        hxlist.pack(expand=True)
+                        hxlist.selection_set(first=0)
+                        # 滚动条动，列表跟着动
+                        sc.config(command=hxlist.yview)
+                        if hx == ["无建议"]:
+                            hxlist.insert(END, "无建议")
+                            win.bind("<Alt_R>", fuck2)
+                            win.bind("<Alt_L>", fuck2)
+                        else:
+                            for item in hx:
+                                hxlist.insert(END, item)  # END表示每插入一个都是在最后一个位置
+
+                            def crzb(event):
+                                for i in hxlist.curselection():
+                                    cr(bandm, hxlist.get(i))
+                                    win.destroy()
+
+                            win.bind("<Return>", crzb)
+                            win.bind("<Double-Button-1>", crzb)
+                            win.bind("<Alt_R>",fuck2)
+                            win.bind("<Alt_L>",fuck2)
+                        win.mainloop()
 
                 self.text.bind("<Alt_L>", bqzt)
                 self.text.bind("<Alt_R>", bqzt)
