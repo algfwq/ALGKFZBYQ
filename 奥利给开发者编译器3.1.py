@@ -1938,7 +1938,7 @@ def xjwjpy():
                                     line = line[0:sb2]
                                 dmlist.append(line)
                     except:
-                        dmlist = ["print",'def']
+                        dmlist = ["print",'def','class','import','from','if','and',"None","or",'==','!=','+=','-=','eles:','elif']
                     # 定位内容
                     self.gbw = self.text.index("insert")
                     def numzs(num):
