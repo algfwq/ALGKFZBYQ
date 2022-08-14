@@ -18,13 +18,6 @@ except (ImportError,ModuleNotFoundError):  # 可能未安装IDLE
     autocomplete = None
 #代码高亮（头）
 
-#高分辨率适配
-import ctypes
-#告诉操作系统使用程序自身的dpi适配
-ctypes.windll.shcore.SetProcessDpiAwareness(1)
-#获取屏幕的缩放因子
-ScaleFactor=ctypes.windll.shcore.GetScaleFactorForDevice(0)
-
 #函数区
 #代码替换=======================
 import os
@@ -1978,24 +1971,22 @@ def xjwjpy():
                             yslist = jieba.lcut(fxbl)
                             dyfcdw = yslist.index("=")
                             dyfcdw = dyfcdw - 2
-                            blm = yslist[dyfcdw]
+                            if yslist[dyfcdw - 1] == "_":
+                                tscl = yslist[dyfcdw - 2]
+                                blm = tscl + "_" + yslist[dyfcdw]
+                            else:
+                                blm = yslist[dyfcdw]
                             dmlist.append(blm)
                         if "def " in fxbl:
-                            import jieba
-                            yslist = jieba.lcut(fxbl)
-                            dyfcdw = yslist.index("def")
-                            dyfcdw = dyfcdw + 2
-                            blm = yslist[dyfcdw]
-                            blm = blm + "()"
-                            dmlist.append(blm)
+                            defdw = fxbl.find("def ") + 4
+                            khdw = fxbl.find("(")
+                            jg = fxbl[defdw:khdw] + "()"
+                            dmlist.append(jg)
                         if "class " in fxbl:
-                            import jieba
-                            yslist = jieba.lcut(fxbl)
-                            dyfcdw = yslist.index("class")
-                            dyfcdw = dyfcdw + 2
-                            blm = yslist[dyfcdw]
-                            blm = blm + "()"
-                            dmlist.append(blm)
+                            classdw = fxbl.find("class ") + 6
+                            khdw = fxbl.find("(")
+                            jg = fxbl[classdw:khdw] + "()"
+                            dmlist.append(jg)
 
                     def power(n):
                         jian = n + n
@@ -2073,7 +2064,7 @@ def xjwjpy():
                         def fuck2(event):
                             win.destroy()
 
-                        win.after(10000, fuck)
+                        win.after(50000, fuck)
                         x = win.winfo_pointerx() - 1
                         y = win.winfo_pointery() - 1
                         x2 = str(x)
@@ -3967,8 +3958,6 @@ def sjanys():
 zck = t.Window(themename="cosmo")
 zck.title("奥利给开发者编译器3.0")
 zck.geometry("300x385")
-zck.call('tk', 'scaling', ScaleFactor/75)
-
 
 #自动更新检查
 try:
