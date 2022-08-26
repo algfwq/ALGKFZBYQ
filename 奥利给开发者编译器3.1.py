@@ -2082,6 +2082,9 @@ def xjwjpy():
                         sc.pack(side=RIGHT, fill=Y)
                         hxlist = Listbox(win, yscrollcommand=sc.set)
                         hxlist.pack(expand=True)
+
+                        hxlist.selection_set(0)
+
                         # 滚动条动，列表跟着动
                         sc.config(command=hxlist.yview)
                         if hx == ["无建议"]:
@@ -2101,7 +2104,6 @@ def xjwjpy():
                             win.bind("<Double-Button-1>", crzb)
                             win.bind("<Alt_R>",fuck2)
                             win.bind("<Alt_L>",fuck2)
-                        #自动选中
 
                         win.mainloop()
 
